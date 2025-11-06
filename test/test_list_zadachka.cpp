@@ -55,25 +55,13 @@ TEST(ListZadachaTest, DetectsNoCycle)
     EXPECT_EQ(result, list.end());
     //ADD_FAILURE();
 }
-TEST(ListZadachaTest, DetectsDifferentCyclesCorrectly)
+TEST(ListZadachaTest, DetectsCyclesinMassiveOfFiveCorrectly)
 {
     int size1 = 5;
-    int size2 = 20;
-    int size3 = 30;
     ForwardList<int> list1;
     for (size_t i = 0; i < size1; i++)
     {
         list1.push_front(size1 - i - 1);
-    }
-    ForwardList<int> list2;
-    for (size_t i = 0; i < size2; i++)
-    {
-        list2.push_front(size2 - i - 1);
-    }
-    ForwardList<int> list3;
-    for (size_t i = 0; i < size3; i++)
-    {
-        list3.push_front(size3 - i - 1);
     }
 
     auto SledZapomnit1 = list1.atIndex(size1 - 1 - 2 + 1);
@@ -84,6 +72,16 @@ TEST(ListZadachaTest, DetectsDifferentCyclesCorrectly)
     EXPECT_EQ(result1, list1.atIndex(size1 - 1 - 2));
     EXPECT_EQ(*result1, list1.atIndex(size1 - 1 - 2).iter->data);
     tmp1.iter->next = SledZapomnit1.iter; //DEL = MEMLEAK
+    //ADD_FAILURE();
+}
+TEST(ListZadachaTest, DetectsCyclesinMassiveOfFivetyCorrectly)
+{
+    int size2 = 50;
+    ForwardList<int> list2;
+    for (size_t i = 0; i < size2; i++)
+    {
+        list2.push_front(size2 - i - 1);
+    }
 
     auto SledZapomnit2 = list2.atIndex(size2 - 1 - 8 + 1);
     auto tmp2 = list2.atIndex(size2 - 1 - 8);
@@ -93,14 +91,24 @@ TEST(ListZadachaTest, DetectsDifferentCyclesCorrectly)
     EXPECT_EQ(result2, list2.atIndex(size2 - 1 - 13));
     EXPECT_EQ(*result2, list2.atIndex(size2 - 1 - 13).iter->data);
     tmp2.iter->next = SledZapomnit2.iter; //DEL = MEMLEAK
+    //ADD_FAILURE();
+}
+TEST(ListZadachaTest, DetectsCyclesinMassiveOfThousandCorrectly)
+{
+    int size1 = 1000;
+    ForwardList<int> list1;
+    for (size_t i = 0; i < size1; i++)
+    {
+        list1.push_front(size1 - i - 1);
+    }
 
-    auto SledZapomnit3 = list3.atIndex(size3 - 1 - 3 + 1);
-    auto tmp3 = list3.atIndex(size3 - 1 - 3);
-    tmp3.iter->next = list3.atIndex(size3 - 1 - 25).iter;
-    auto result3 = ZadachaNumberSixteen(list3.begin());
+    auto SledZapomnit1 = list1.atIndex(size1 - 1 - 2 + 1);
+    auto tmp1 = list1.atIndex(size1 - 1 - 2);
+    tmp1.iter->next = list1.atIndex(size1 - 1 - 300).iter;
+    auto result1 = ZadachaNumberSixteen(list1.begin());
 
-    EXPECT_EQ(result3, list3.atIndex(size3 - 1 - 25));
-    EXPECT_EQ(*result3, list3.atIndex(size3 - 1 - 25).iter->data);
-    tmp3.iter->next = SledZapomnit3.iter; //DEL = MEMLEAK
+    EXPECT_EQ(result1, list1.atIndex(size1 - 1 - 300));
+    EXPECT_EQ(*result1, list1.atIndex(size1 - 1 - 300).iter->data);
+    tmp1.iter->next = SledZapomnit1.iter; //DEL = MEMLEAK
     //ADD_FAILURE();
 }

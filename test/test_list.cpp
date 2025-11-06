@@ -21,7 +21,44 @@ TEST(ListTest, ConstructorWith_N_ElementCreates_N_ElementList)
     //ADD_FAILURE();
 }
 
-TEST(ListTest, PushFrontIncreasesSize)
+TEST(ListTest, PushFrontConstIncreasesSize)
+{
+    ForwardList<int> list;
+    const int a = 1;
+
+    list.push_front(a);
+
+    EXPECT_FALSE(list.empty());
+    EXPECT_EQ(list.size(), 1);
+
+    list.push_front(a);
+
+    EXPECT_EQ(list.size(), 2);
+    //ADD_FAILURE();
+}
+
+TEST(ListTest, FrontReturnsLastPushedConstElement)
+{
+    ForwardList<int> list;
+    const int a = 10;
+    const int b = 20;
+    const int c = 30;
+
+    list.push_front(a);
+
+    EXPECT_EQ(list.front(), a);
+
+    list.push_front(b);
+
+    EXPECT_EQ(list.front(), b);
+
+    list.push_front(c);
+
+    EXPECT_EQ(list.front(), c);
+    //ADD_FAILURE();
+}
+
+TEST(ListTest, PushFrontMoveIncreasesSize)
 {
     ForwardList<int> list;
 

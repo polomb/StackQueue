@@ -217,7 +217,7 @@ public:
     }
     Iterator push_front(T&& elem)
     {
-        Node* tmp = new Node(std::move(elem));
+        Node* tmp = new Node(std::move(elem)); //forward -> error
         tmp->next = first;
         first = tmp;
         listSize++;
